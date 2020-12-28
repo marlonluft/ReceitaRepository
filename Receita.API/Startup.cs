@@ -34,6 +34,13 @@ namespace Receita.API
 
             services.AddSingleton<IReceitaDatabaseSettings>(sp =>
                 sp.GetRequiredService<IOptions<ReceitaDatabaseSettings>>().Value);
+
+            services.AddCors(o => o.AddPolicy("CORS_LIVRE", builder =>
+            {
+                builder.AllowAnyOrigin()
+                       .AllowAnyMethod()
+                       .AllowAnyHeader();
+            }));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -41,6 +48,7 @@ namespace Receita.API
         {
             if (env.IsDevelopment())
             {
+                app.UseCors("CORS_LIVRE");
                 app.UseDeveloperExceptionPage();
             }
 
