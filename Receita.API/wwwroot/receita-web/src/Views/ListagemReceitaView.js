@@ -19,7 +19,7 @@ class ListagemReceitaView extends Component {
     render() {
         return (
             <div>
-                <Link to={'/'}>Voltar</Link>
+                <Link to={'/cadastrar'}>Cadastrar</Link>
             </div>);
     }
 }
