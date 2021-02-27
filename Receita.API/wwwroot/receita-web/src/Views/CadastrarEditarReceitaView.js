@@ -25,7 +25,7 @@ class CadastrarEditarReceitaView extends Component {
         receita: {
             id: null,
             titulo: "",
-            ingredientes: [],
+            listaIgredientes: [],
             listaPassoAPasso: []
         }
     }
@@ -63,13 +63,13 @@ class CadastrarEditarReceitaView extends Component {
 
     onSalvarIngrediente = (ingrediente) => {
 
-        var ingredientes = this.state.receita.ingredientes
+        var ingredientes = this.state.receita.listaIgredientes
         ingredientes.push(ingrediente)
 
         this.setState((state, props) => ({
             receita: {
                 ...state.receita,
-                ingredientes: ingredientes
+                listaIgredientes: ingredientes
             }
         }))
     }
@@ -88,6 +88,15 @@ class CadastrarEditarReceitaView extends Component {
                 listaPassoAPasso: listaPassoAPasso
             }
         }))
+    }
+
+    onGravar = () => {
+        if (this.state.receita.id) {
+            this.props.atualizarReceita(this.state.receita, () => this.props.history.push('/'))
+        }
+        else {
+            this.props.addReceita(this.state.receita, () => this.props.history.push('/'))
+        }
     }
 
     render() {
@@ -123,8 +132,8 @@ class CadastrarEditarReceitaView extends Component {
                                 </thead>
                                 <tbody>
                                     {
-                                        (receita.ingredientes.length > 0) ?
-                                            receita.ingredientes.map((ingrediente, key) => (
+                                        (receita.listaIgredientes.length > 0) ?
+                                            receita.listaIgredientes.map((ingrediente, key) => (
                                                 <tr key={key}>
                                                     <td>{ingrediente.descricao}</td>
                                                     <td>{ingrediente.quantidade ?? 'N/A'}</td>
@@ -181,6 +190,7 @@ class CadastrarEditarReceitaView extends Component {
                     </Form>
 
                     <Link to={'/'}>Voltar</Link>
+                    <Button outline color="primary" size="sm" onClick={this.onGravar}>Gravar</Button>
                 </Col>
 
                 <IngredienteModel exibir={modal.exibirIgrediente} onClose={() => this.alterarModalIgredientes(false)} onSalvar={this.onSalvarIngrediente}></IngredienteModel>
@@ -192,15 +202,15 @@ class CadastrarEditarReceitaView extends Component {
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
         onLoad: () => {
-            // Caso o id esteja definido, então é a alterção de uma postagem e consulta a mesma na api
+            // Caso o id esteja definido, então é a alterção de uma receita e consulta a mesma na api
             if (typeof ownProps.match.params.id !== 'undefined') {
                 dispatch(handleConsultarReceita(ownProps.match.params.id))
             }
         },
-        addPostagem: (objeto, callBack) => {
+        addReceita: (objeto, callBack) => {
             dispatch(handleAdicionarReceita(objeto, callBack))
         },
-        atualizarPostagem: (objeto, callBack) => {
+        atualizarReceita: (objeto, callBack) => {
             dispatch(handleAlterarReceita(objeto, callBack))
         }
     }
