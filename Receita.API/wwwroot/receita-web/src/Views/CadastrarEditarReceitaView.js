@@ -11,6 +11,7 @@ import { Row, Col, Form, FormGroup, Label, Input, Table, Button } from 'reactstr
 
 /* Components */
 import IngredienteModel from '../Components/IngredienteModel'
+import PassoModel from '../Components/PassoModel'
 
 import { GetEnumDescricao } from '../Util/Funcoes'
 import { EUnidadeMedida } from '../Util/Enumerador'
@@ -18,12 +19,14 @@ import { EUnidadeMedida } from '../Util/Enumerador'
 class CadastrarEditarReceitaView extends Component {
     state = {
         modal: {
-            exibir: false,
+            exibirIgrediente: false,
+            exibirPassos: false
         },
         receita: {
             id: null,
             titulo: "",
             ingredientes: [],
+            listaPassoAPasso: []
         }
     }
 
@@ -31,11 +34,20 @@ class CadastrarEditarReceitaView extends Component {
         this.props.onLoad()
     }
 
-    alterarModal = (exibir) => {
+    alterarModalIgredientes = (exibirIgrediente) => {
         this.setState((state, props) => ({
             modal: {
                 ...state.model,
-                exibir
+                exibirIgrediente
+            }
+        }))
+    }
+
+    alterarModalPasso = (exibirPassos) => {
+        this.setState((state, props) => ({
+            modal: {
+                ...state.model,
+                exibirPassos
             }
         }))
     }
@@ -62,6 +74,22 @@ class CadastrarEditarReceitaView extends Component {
         }))
     }
 
+    onSalvarPasso = (novoPasso) => {
+
+        var listaPassoAPasso = this.state.receita.listaPassoAPasso
+
+        novoPasso.ordem = listaPassoAPasso.length + 1;
+
+        listaPassoAPasso.push(novoPasso)
+
+        this.setState((state, props) => ({
+            receita: {
+                ...state.receita,
+                listaPassoAPasso: listaPassoAPasso
+            }
+        }))
+    }
+
     render() {
 
         const { receita, modal } = this.state
@@ -80,7 +108,7 @@ class CadastrarEditarReceitaView extends Component {
                                     <Label for="txtIngredientes">Ingredientes</Label>
                                 </Col>
                                 <Col sm={6} className="text-right">
-                                    <Button outline color="primary" size="sm" onClick={() => this.alterarModal(true)}>Novo Ingrediente</Button>
+                                    <Button outline color="primary" size="sm" onClick={() => this.alterarModalIgredientes(true)}>Novo Ingrediente</Button>
                                 </Col>
                             </Row>
 
@@ -113,12 +141,50 @@ class CadastrarEditarReceitaView extends Component {
                                 </tbody>
                             </Table>
                         </FormGroup>
+                        <FormGroup>
+                            <Row>
+                                <Col sm={6}>
+                                    <Label for="txtPassoAPasso">Passo a passo</Label>
+                                </Col>
+                                <Col sm={6} className="text-right">
+                                    <Button outline color="primary" size="sm" onClick={() => this.alterarModalPasso(true)}>Novo passo</Button>
+                                </Col>
+                            </Row>
+
+                            <Table id="txtPassoAPasso" size="sm" responsive>
+                                <thead>
+                                    <tr>
+                                        <th>Ordem</th>
+                                        <th>Descrição</th>
+                                        <th>Observação</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        (receita.listaPassoAPasso.length > 0) ?
+                                            receita.listaPassoAPasso.map((passo, key) => (
+                                                <tr key={key}>
+                                                    <td>{passo.ordem}</td>
+                                                    <td>{passo.descricao}</td>
+                                                    <td>{passo.observacao}</td>
+                                                </tr>
+                                            ))
+                                            :
+                                            <tr className="text-center">
+                                                <td colSpan="3">Nenhum passo cadastrado</td>
+                                            </tr>
+                                    }
+
+                                </tbody>
+                            </Table>
+                        </FormGroup>
                     </Form>
 
                     <Link to={'/'}>Voltar</Link>
                 </Col>
 
-                <IngredienteModel exibir={modal.exibir} onClose={() => this.alterarModal(false)} onSalvar={this.onSalvarIngrediente}></IngredienteModel>
+                <IngredienteModel exibir={modal.exibirIgrediente} onClose={() => this.alterarModalIgredientes(false)} onSalvar={this.onSalvarIngrediente}></IngredienteModel>
+                <PassoModel exibir={modal.exibirPassos} onClose={() => this.alterarModalPasso(false)} onSalvar={this.onSalvarPasso}></PassoModel>
             </Row>);
     }
 }
