@@ -32,7 +32,7 @@ namespace Receita.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Gravar(ReceitaEntity entity)
+        public IActionResult Gravar([FromBody]ReceitaEntity entity)
         {
             _receitaService.GravarReceita(entity);
 
