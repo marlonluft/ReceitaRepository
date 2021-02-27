@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Receita.API.ViewModel;
 using Receita.Core.Entity;
 using Receita.Core.Filter;
 using Receita.Core.Service;
@@ -32,9 +33,9 @@ namespace Receita.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Gravar([FromBody]ReceitaEntity entity)
+        public IActionResult Gravar([FromBody] ReceitaViewModel viewModel)
         {
-            _receitaService.GravarReceita(entity);
+            _receitaService.GravarReceita(viewModel.ToEntity());
 
             return Ok();
         }
