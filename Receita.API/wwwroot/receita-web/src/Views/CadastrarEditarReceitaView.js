@@ -12,6 +12,7 @@ import { Row, Col, Form, FormGroup, Label, Input, Table, Button } from 'reactstr
 /* Components */
 import IngredienteModel from '../Components/IngredienteModel'
 import PassoModel from '../Components/PassoModel'
+import TagModel from '../Components/TagModel'
 
 import { GetEnumDescricao } from '../Util/Funcoes'
 import { EUnidadeMedida } from '../Util/Enumerador'
@@ -20,13 +21,15 @@ class CadastrarEditarReceitaView extends Component {
     state = {
         modal: {
             exibirIgrediente: false,
-            exibirPassos: false
+            exibirPassos: false,
+            exibirTags: false
         },
         receita: {
             id: null,
             titulo: "",
             listaIgredientes: [],
-            listaPassoAPasso: []
+            listaPassoAPasso: [],
+            tags: []
         }
     }
 
@@ -34,20 +37,11 @@ class CadastrarEditarReceitaView extends Component {
         this.props.onLoad()
     }
 
-    alterarModalIgredientes = (exibirIgrediente) => {
+    alterarModal = (modal) => {
         this.setState((state, props) => ({
             modal: {
                 ...state.model,
-                exibirIgrediente
-            }
-        }))
-    }
-
-    alterarModalPasso = (exibirPassos) => {
-        this.setState((state, props) => ({
-            modal: {
-                ...state.model,
-                exibirPassos
+                ...modal
             }
         }))
     }
@@ -90,6 +84,18 @@ class CadastrarEditarReceitaView extends Component {
         }))
     }
 
+    onSalvarTag = (tag) => {
+        var listaTags = this.state.receita.tags
+        listaTags.push(tag)
+
+        this.setState((state, props) => ({
+            receita: {
+                ...state.receita,
+                tags: listaTags
+            }
+        }))
+    }
+
     onGravar = () => {
         if (this.state.receita.id) {
             this.props.atualizarReceita(this.state.receita, () => this.props.history.push('/'))
@@ -117,7 +123,7 @@ class CadastrarEditarReceitaView extends Component {
                                     <Label for="txtIngredientes">Ingredientes</Label>
                                 </Col>
                                 <Col sm={6} className="text-right">
-                                    <Button outline color="primary" size="sm" onClick={() => this.alterarModalIgredientes(true)}>Novo Ingrediente</Button>
+                                    <Button outline color="primary" size="sm" onClick={() => this.alterarModal({ exibirIgrediente: true })}>Novo Ingrediente</Button>
                                 </Col>
                             </Row>
 
@@ -156,7 +162,7 @@ class CadastrarEditarReceitaView extends Component {
                                     <Label for="txtPassoAPasso">Passo a passo</Label>
                                 </Col>
                                 <Col sm={6} className="text-right">
-                                    <Button outline color="primary" size="sm" onClick={() => this.alterarModalPasso(true)}>Novo passo</Button>
+                                    <Button outline color="primary" size="sm" onClick={() => this.alterarModal({ exibirPassos: true })}>Novo passo</Button>
                                 </Col>
                             </Row>
 
@@ -187,14 +193,48 @@ class CadastrarEditarReceitaView extends Component {
                                 </tbody>
                             </Table>
                         </FormGroup>
+                        <FormGroup>
+                            <Row>
+                                <Col sm={6}>
+                                    <Label for="txtTags">Tags</Label>
+                                </Col>
+                                <Col sm={6} className="text-right">
+                                    <Button outline color="primary" size="sm" onClick={() => this.alterarModal({ exibirTags: true })}>Nova tag</Button>
+                                </Col>
+                            </Row>
+
+                            <Table id="txtTags" size="sm" responsive>
+                                <thead>
+                                    <tr>
+                                        <th>Tag</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {
+                                        (receita.tags.length > 0) ?
+                                            receita.tags.map((tag, key) => (
+                                                <tr key={key}>
+                                                    <td>{tag}</td>
+                                                </tr>
+                                            ))
+                                            :
+                                            <tr className="text-center">
+                                                <td>Nenhuma tag cadastrada</td>
+                                            </tr>
+                                    }
+
+                                </tbody>
+                            </Table>
+                        </FormGroup>
                     </Form>
 
                     <Link to={'/'}>Voltar</Link>
                     <Button outline color="primary" size="sm" onClick={this.onGravar}>Gravar</Button>
                 </Col>
 
-                <IngredienteModel exibir={modal.exibirIgrediente} onClose={() => this.alterarModalIgredientes(false)} onSalvar={this.onSalvarIngrediente}></IngredienteModel>
-                <PassoModel exibir={modal.exibirPassos} onClose={() => this.alterarModalPasso(false)} onSalvar={this.onSalvarPasso}></PassoModel>
+                <IngredienteModel exibir={modal.exibirIgrediente} onClose={() => this.alterarModal({ exibirIgrediente: false })} onSalvar={this.onSalvarIngrediente}></IngredienteModel>
+                <PassoModel exibir={modal.exibirPassos} onClose={() => this.alterarModal({ exibirPassos: false })} onSalvar={this.onSalvarPasso}></PassoModel>
+                <TagModel exibir={modal.exibirTags} onClose={() => this.alterarModal({ exibirTags: false })} onSalvar={this.onSalvarTag}></TagModel>
             </Row>);
     }
 }
