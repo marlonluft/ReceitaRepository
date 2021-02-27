@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Receita.Core.Entity;
+using Receita.Core.Filter;
 using Receita.Core.Service;
 using System;
 using System.Collections.Generic;
@@ -25,7 +26,7 @@ namespace Receita.API.Controllers
         [HttpGet]
         public IActionResult Listar()
         {
-            var lista = new List<ReceitaEntity>();
+            var lista = _receitaService.Listar(new ReceitaFilter());
 
             return Ok(lista);
         }
@@ -35,7 +36,7 @@ namespace Receita.API.Controllers
         {
             _receitaService.GravarReceita(entity);
 
-            return Ok("Pong");
+            return Ok();
         }
     }
 }

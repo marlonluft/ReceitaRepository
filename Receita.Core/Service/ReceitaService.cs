@@ -1,4 +1,5 @@
 ﻿using Receita.Core.Entity;
+using Receita.Core.Filter;
 using Receita.Core.Repository;
 using System;
 using System.Collections.Generic;
@@ -27,9 +28,9 @@ namespace Receita.Core.Service
             }
         }
 
-        public List<ReceitaEntity> ListarPorTags(List<string> tags)
+        public List<ReceitaEntity> Listar(ReceitaFilter filtro)
         {
-            throw new NotImplementedException();
+            return _repository.Listar(filtro);
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using Receita.Core.Entity;
+using Receita.Core.Filter;
 using System;
+using System.Collections.Generic;
 
 namespace Receita.Core.Repository
 {
@@ -7,5 +9,6 @@ namespace Receita.Core.Repository
     {
         void Gravar(ReceitaEntity entity);
         void Alterar(Guid id, ReceitaEntity entity);
+        List<ReceitaEntity> Listar(ReceitaFilter filtro);
     }
 }

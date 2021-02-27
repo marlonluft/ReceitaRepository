@@ -1,5 +1,5 @@
 ﻿using Receita.Core.Entity;
-using System;
+using Receita.Core.Filter;
 using System.Collections.Generic;
 
 namespace Receita.Core.Service
@@ -7,6 +7,6 @@ namespace Receita.Core.Service
     public interface IReceitaService
     {
         void GravarReceita(ReceitaEntity entity);
-        List<ReceitaEntity> ListarPorTags(List<string> tags);
+        List<ReceitaEntity> Listar(ReceitaFilter filtro);
     }
 }
