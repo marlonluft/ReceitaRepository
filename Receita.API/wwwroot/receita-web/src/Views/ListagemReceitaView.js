@@ -6,6 +6,9 @@ import { Link } from 'react-router-dom'
 /* Actions */
 import { handleListarReceitas } from '../Actions/ReceitaAction'
 
+/* Layout */
+import { Row, Col, Table } from 'reactstrap';
+
 class ListagemReceitaView extends Component {
 
     state = {
@@ -17,10 +20,44 @@ class ListagemReceitaView extends Component {
     }
 
     render() {
+
+        const { receitas } = this.props
+
         return (
-            <div>
-                <Link to={'/cadastrar'}>Cadastrar</Link>
-            </div>);
+            <Col sm={{ size: 12}}>
+                <Row>
+                    <Col sm={{ size: 6, offset: 3 }}>
+                        <Link to={'/cadastrar'}>Cadastrar</Link>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col sm={{ size: 10, offset: 1 }}>
+                        <Table>
+                            <thead>
+                                <tr>
+                                    <th>Titulo</th>
+                                    <th>#</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    receitas && receitas.length > 0 ?
+                                        receitas.map((receita) => {
+                                            return <tr>
+                                                <td>{receita.Titulo}</td>
+                                                <td></td>
+                                            </tr>
+                                        })
+                                        :
+                                        <tr>
+                                            <td colSpan={2}>Nenhuma receita cadastrada</td>
+                                        </tr>
+                                }
+                            </tbody>
+                        </Table>
+                    </Col>
+                </Row>
+            </Col>);
     }
 }
 
