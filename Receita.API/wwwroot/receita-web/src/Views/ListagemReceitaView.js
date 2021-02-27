@@ -42,8 +42,8 @@ class ListagemReceitaView extends Component {
                             <tbody>
                                 {
                                     receitas && receitas.length > 0 ?
-                                        receitas.map((receita) => {
-                                            return <tr>
+                                        receitas.map((receita, key) => {
+                                            return <tr key={key}>
                                                 <td>{receita.Titulo}</td>
                                                 <td></td>
                                             </tr>
