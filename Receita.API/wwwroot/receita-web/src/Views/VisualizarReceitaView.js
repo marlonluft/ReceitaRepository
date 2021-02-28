@@ -6,6 +6,12 @@ import { Link } from 'react-router-dom'
 /* Actions */
 import { handleConsultarReceita } from '../Actions/ReceitaAction'
 
+/* Layout */
+import { Row, Col, List, Badge } from 'reactstrap';
+
+import { EUnidadeMedida } from '../Util/Enumerador'
+import { GetEnumDescricao } from '../Util/Funcoes'
+
 class VisualizarReceitaView extends Component {
 
     state = {
@@ -32,10 +38,69 @@ class VisualizarReceitaView extends Component {
 
     render() {
 
+        var { receita } = this.state
+
         return (
-            <div>
-                <Link to={'/'}>Voltar</Link>
-            </div>
+            receita ?
+                <Col sm={{ size: 12 }}>
+                    <Row>
+                        <h3>Título:</h3> {receita.titulo}
+                    </Row>
+                    <Col sm={{ size: 6 }}>
+                        <h3>Igredientes:</h3>
+                        <List>
+                            {
+                                receita.listaIgredientes ? receita.listaIgredientes.map((igrediente) => {
+                                    return <li>
+                                        {igrediente.quantidade} {GetEnumDescricao(EUnidadeMedida, igrediente.unidadeMedida)} - {igrediente.descricao}
+                                        {
+                                            igrediente.observacao ?
+                                                <ul>
+                                                    <li>{igrediente.observacao}</li>
+                                                </ul> : ""
+                                        }
+                                    </li>
+                                })
+                                    :
+                                    <li>Nenhum igrediente necessário</li>
+                            }
+                        </List>
+                    </Col>
+                    <Col sm={{ size: 6 }}>
+                        <h3>Passos:</h3>
+                        <List>
+                            {
+                                receita.listaPassoAPasso ? receita.listaPassoAPasso.map((passo) => {
+                                    return <li>
+                                        {passo.descricao}
+                                        {
+                                            passo.observacao ?
+                                                <ul>
+                                                    <li>{passo.observacao}</li>
+                                                </ul> : ""
+                                        }
+                                    </li>
+                                })
+                                    :
+                                    <li>Nenhum passo necessário</li>
+                            }
+                        </List>
+
+                    </Col>
+                    <Row>
+                        <h3>Tags:</h3>
+                        <div>
+                            {
+                                receita.tags.map((tag) => <Badge color="secondary">{tag}</Badge>)
+                            }
+                        </div>
+                    </Row>
+                    <Link to={'/'}>Voltar</Link>
+                </Col>
+                :
+                <Col sm={{ size: 12 }}>
+                    Carregando...
+                </Col>
         )
     }
 }
