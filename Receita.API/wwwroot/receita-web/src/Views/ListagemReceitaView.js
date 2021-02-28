@@ -44,7 +44,7 @@ class ListagemReceitaView extends Component {
                                     receitas && receitas.length > 0 ?
                                         receitas.map((receita, key) => {
                                             return <tr key={key}>
-                                                <td>{receita.Titulo}</td>
+                                                <td>{receita.titulo}</td>
                                                 <td></td>
                                             </tr>
                                         })
