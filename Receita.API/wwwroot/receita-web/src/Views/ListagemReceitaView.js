@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { handleListarReceitas } from '../Actions/ReceitaAction'
 
 /* Layout */
-import { Row, Col, Table } from 'reactstrap';
+import { Row, Col, Table, Button } from 'reactstrap';
 
 class ListagemReceitaView extends Component {
 
@@ -19,12 +19,19 @@ class ListagemReceitaView extends Component {
         this.props.onLoad()
     }
 
+    verReceita = (receitaParam) => {
+        this.props.history.push({
+            pathname: '/visualizar/' + receitaParam.id,
+            state: { receita: receitaParam }
+        })
+    }
+
     render() {
 
         const { receitas } = this.props
 
         return (
-            <Col sm={{ size: 12}}>
+            <Col sm={{ size: 12 }}>
                 <Row>
                     <Col sm={{ size: 6, offset: 3 }}>
                         <Link to={'/cadastrar'}>Cadastrar</Link>
@@ -45,7 +52,9 @@ class ListagemReceitaView extends Component {
                                         receitas.map((receita, key) => {
                                             return <tr key={key}>
                                                 <td>{receita.titulo}</td>
-                                                <td></td>
+                                                <td>
+                                                    <Button outline color="primary" size="sm" onClick={() => this.verReceita(receita)}>Ver</Button>
+                                                </td>
                                             </tr>
                                         })
                                         :
