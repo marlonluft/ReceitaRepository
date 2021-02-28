@@ -86,7 +86,7 @@ export function handleConsultarReceita(id) {
 
     return (dispatch) => {
 
-        return API.get('https://localhost:44342/receita')
+        return API.get('https://localhost:44342/receita/' + id)
             .then((receita) => {
                 dispatch(consultarReceita(receita))
             })

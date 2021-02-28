@@ -10,5 +10,6 @@ namespace Receita.Core.Repository
         void Gravar(ReceitaEntity entity);
         void Alterar(Guid id, ReceitaEntity entity);
         List<ReceitaEntity> Listar(ReceitaFilter filtro);
+        ReceitaEntity Buscar(Guid id);
     }
 }

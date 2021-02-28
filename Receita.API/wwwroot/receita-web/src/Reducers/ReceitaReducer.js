@@ -6,7 +6,7 @@ import {
     REMOVER,
 } from '../Actions/ReceitaAction'
 
-export function ReceitaReducer(state = {}, action) {
+export function ReceitaReducer(state = null, action) {
     switch (action.type) {
         case CONSULTAR:
             return action.receita

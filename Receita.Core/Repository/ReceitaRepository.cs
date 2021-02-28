@@ -45,5 +45,11 @@ namespace Receita.Core.Repository
 
             return _receitas.Find(Builders<ReceitaEntity>.Filter.And(parametros)).ToList();
         }
+
+        public ReceitaEntity Buscar(Guid id)
+        {
+            var filtro = Builders<ReceitaEntity>.Filter.Eq(x => x.Id, id);
+            return _receitas.Find(filtro).FirstOrDefault();
+        }
     }
 }

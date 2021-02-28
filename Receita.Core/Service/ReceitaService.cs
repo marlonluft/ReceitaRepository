@@ -15,6 +15,11 @@ namespace Receita.Core.Service
             _repository = repository;
         }
 
+        public ReceitaEntity Buscar(Guid id)
+        {
+            return _repository.Buscar(id);
+        }
+
         public void GravarReceita(ReceitaEntity entity)
         {
             if (entity.Id == Guid.Empty)

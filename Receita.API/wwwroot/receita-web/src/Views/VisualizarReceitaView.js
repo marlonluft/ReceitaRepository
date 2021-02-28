@@ -27,14 +27,18 @@ class VisualizarReceitaView extends Component {
             })
         }
         else {
-            var id = this.props.match.params.id;
-
-            //TODO buscar receita
+            var id = this.props.match.params.id
+            this.props.getReceita(id)
         }
     }
 
-
-
+    componentDidUpdate(propAnterior) {
+        if (this.props.receita && (!propAnterior.receita || propAnterior.receita.id !== this.props.receita.id)) {
+            this.setState({
+                receita: this.props.receita
+            })
+        }
+    }
 
     render() {
 
@@ -107,9 +111,8 @@ class VisualizarReceitaView extends Component {
 
 const mapDispatchToProps = (dispatch, ownProps) => {
     return {
-        onLoad: (callBackPostagem) => {
-            // Consulta na api a postagem requisitada.
-            dispatch(handleConsultarReceita(ownProps.match.params.postId, callBackPostagem))
+        getReceita: (idReceita) => {
+            dispatch(handleConsultarReceita(idReceita))
         }
     }
 }

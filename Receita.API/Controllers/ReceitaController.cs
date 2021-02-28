@@ -32,6 +32,24 @@ namespace Receita.API.Controllers
             return Ok(lista);
         }
 
+        [HttpGet("{id}")]
+        public IActionResult Obter(string id)
+        {
+            if (Guid.TryParse(id, out Guid idGuid))
+            {
+                var receita = _receitaService.Buscar(idGuid);
+
+                if (receita == null)
+                {
+                    return BadRequest("Receita não encontrada");
+                }
+
+                return Ok(receita);
+            }
+
+            return BadRequest("Identificação de receita inválido");
+        }
+
         [HttpPost]
         public IActionResult Gravar([FromBody] ReceitaViewModel viewModel)
         {
