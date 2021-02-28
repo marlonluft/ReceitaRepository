@@ -54,8 +54,8 @@ class VisualizarReceitaView extends Component {
                         <h3>Igredientes:</h3>
                         <List>
                             {
-                                receita.listaIgredientes ? receita.listaIgredientes.map((igrediente) => {
-                                    return <li>
+                                receita.listaIgredientes ? receita.listaIgredientes.map((igrediente, key) => {
+                                    return <li key={key}>
                                         {igrediente.quantidade} {GetEnumDescricao(EUnidadeMedida, igrediente.unidadeMedida)} - {igrediente.descricao}
                                         {
                                             igrediente.observacao ?
@@ -74,8 +74,8 @@ class VisualizarReceitaView extends Component {
                         <h3>Passos:</h3>
                         <List>
                             {
-                                receita.listaPassoAPasso ? receita.listaPassoAPasso.map((passo) => {
-                                    return <li>
+                                receita.listaPassoAPasso ? receita.listaPassoAPasso.map((passo, key) => {
+                                    return <li key={key}>
                                         {passo.descricao}
                                         {
                                             passo.observacao ?
@@ -95,7 +95,7 @@ class VisualizarReceitaView extends Component {
                         <h3>Tags:</h3>
                         <div>
                             {
-                                receita.tags.map((tag) => <Badge color="secondary">{tag}</Badge>)
+                                receita.tags.map((tag, key) => <Badge color="secondary" key={key}>{tag}</Badge>)
                             }
                         </div>
                     </Row>
