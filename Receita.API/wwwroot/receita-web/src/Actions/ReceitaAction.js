@@ -41,11 +41,14 @@ function removerReceita(id) {
     }
 }
 
+const apiUrl = 'https://localhost:44342/receita'
+//const apiUrl = 'https://recettes.azurewebsites.net/receita'
+
 export function handleAdicionarReceita(objeto, callBack) {
 
     return (dispatch) => {
 
-        return API.post('https://localhost:44342/receita', objeto)
+        return API.post(apiUrl, objeto)
             .then(() => {
                 dispatch(adicionarReceita(objeto))
                 callBack()
@@ -58,7 +61,7 @@ export function handleAlterarReceita(objeto, callBack) {
 
     return (dispatch) => {
 
-        return API.put('https://localhost:44342/receita', objeto)
+        return API.put(apiUrl, objeto)
             .then(() => {
                 dispatch(alterarReceita(objeto))
                 callBack()
@@ -71,7 +74,7 @@ export function handleRemoverReceita(objeto, callBack) {
 
     return (dispatch) => {
 
-        return API.delete('https://localhost:44342/receita', objeto.id)
+        return API.delete(apiUrl, objeto.id)
             .then(() => {
                 dispatch(removerReceita(objeto.id))
                 callBack();
@@ -86,7 +89,7 @@ export function handleConsultarReceita(id) {
 
     return (dispatch) => {
 
-        return API.get('https://localhost:44342/receita/' + id)
+        return API.get(apiUrl + id)
             .then((receita) => {
                 dispatch(consultarReceita(receita))
             })
@@ -100,7 +103,7 @@ export function handleListarReceitas() {
 
     return (dispatch) => {
 
-        return API.get('https://localhost:44342/receita')
+        return API.get(apiUrl)
             .then((listaReceitas) => {
                 dispatch(listarReceita(listaReceitas))
             })
