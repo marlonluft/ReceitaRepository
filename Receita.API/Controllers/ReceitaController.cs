@@ -1,13 +1,9 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Receita.API.ViewModel;
-using Receita.Core.Entity;
 using Receita.Core.Filter;
 using Receita.Core.Service;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace Receita.API.Controllers
 {
