@@ -3,10 +3,10 @@ import React from 'react';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
 /* Views */
-import ListagemReceitaView from './Views/ListagemReceitaView.js'
-import CadastrarEditarReceitaView from './Views/CadastrarEditarReceitaView.js'
-import VisualizarReceitaView from './Views/VisualizarReceitaView.js'
-import NaoEncontradoView from './Views/NaoEncontradoView.js'
+import ListagemReceitaView from './Pages/ListagemReceitaPage.js'
+import CadastrarEditarReceitaView from './Pages/CadastrarEditarReceitaPage.js'
+import VisualizarReceitaView from './Pages/VisualizarReceitaPage.js'
+import NaoEncontradoView from './Pages/NaoEncontradoPage.js'
 
 function App() {
   return (
