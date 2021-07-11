@@ -97,12 +97,7 @@ class CadastrarEditarReceitaView extends Component {
     }
 
     onGravar = () => {
-        if (this.state.receita.id) {
-            this.props.atualizarReceita(this.state.receita, () => this.props.history.push('/'))
-        }
-        else {
-            this.props.addReceita(this.state.receita, () => this.props.history.push('/'))
-        }
+        this.props.gravarReceita(this.state.receita, () => this.props.history.push('/'))
     }
 
     render() {
@@ -247,11 +242,14 @@ const mapDispatchToProps = (dispatch, ownProps) => {
                 dispatch(handleConsultarReceita(ownProps.match.params.id))
             }
         },
-        addReceita: (objeto, callBack) => {
-            dispatch(handleAdicionarReceita(objeto, callBack))
-        },
-        atualizarReceita: (objeto, callBack) => {
-            dispatch(handleAlterarReceita(objeto, callBack))
+        gravarReceita: (objeto, callBack) => {
+            if (objeto.id) {
+                dispatch(handleAlterarReceita(objeto.id, objeto, callBack))
+            }
+            else {
+                dispatch(handleAdicionarReceita(objeto, callBack))
+            }
+
         }
     }
 }

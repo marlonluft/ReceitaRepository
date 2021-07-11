@@ -7,7 +7,8 @@ namespace Receita.Core.Service
 {
     public interface IReceitaService
     {
-        void GravarReceita(ReceitaEntity entity);
+        void AdicionarReceita(ReceitaEntity entity);
+        void AlterarReceita(Guid id, ReceitaEntity entity);
         List<ReceitaEntity> Listar(ReceitaFilter filtro);
         ReceitaEntity Buscar(Guid id);
     }

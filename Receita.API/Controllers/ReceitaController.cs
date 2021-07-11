@@ -47,9 +47,17 @@ namespace Receita.API.Controllers
         }
 
         [HttpPost]
-        public IActionResult Gravar([FromBody] ReceitaViewModel viewModel)
+        public IActionResult Adicionar([FromBody] ReceitaViewModel viewModel)
         {
-            _receitaService.GravarReceita(viewModel.ToEntity());
+            _receitaService.AdicionarReceita(viewModel.ToEntity());
+
+            return Ok();
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Alterar([FromQuery] Guid id, [FromBody] ReceitaViewModel viewModel)
+        {
+            _receitaService.AlterarReceita(id, viewModel.ToEntity());
 
             return Ok();
         }

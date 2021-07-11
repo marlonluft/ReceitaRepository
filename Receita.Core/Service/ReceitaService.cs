@@ -20,22 +20,25 @@ namespace Receita.Core.Service
             return _repository.Buscar(id);
         }
 
-        public void GravarReceita(ReceitaEntity entity)
+        public void AdicionarReceita(ReceitaEntity entity)
         {
-            if (entity.Id == Guid.Empty)
-            {
-                entity.Id = Guid.NewGuid();
-                _repository.Gravar(entity);
-            }
-            else
-            {
-                _repository.Alterar(entity.Id, entity);
-            }
+            entity.Id = Guid.NewGuid();
+            _repository.Gravar(entity);
         }
 
         public List<ReceitaEntity> Listar(ReceitaFilter filtro)
         {
             return _repository.Listar(filtro);
+        }
+
+        public void AlterarReceita(Guid id, ReceitaEntity entity)
+        {
+            if (entity.Id != id)
+            {
+                // Lançar exeção
+            }
+
+            _repository.Alterar(id, entity);
         }
     }
 }

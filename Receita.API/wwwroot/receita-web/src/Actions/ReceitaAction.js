@@ -57,11 +57,11 @@ export function handleAdicionarReceita(objeto, callBack) {
     }
 }
 
-export function handleAlterarReceita(objeto, callBack) {
+export function handleAlterarReceita(id, objeto, callBack) {
 
     return (dispatch) => {
 
-        return API.put(apiUrl, objeto)
+        return API.put(apiUrl + "/" + id, objeto)
             .then(() => {
                 dispatch(alterarReceita(objeto))
                 callBack()
