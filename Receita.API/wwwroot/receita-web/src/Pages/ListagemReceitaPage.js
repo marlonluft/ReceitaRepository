@@ -9,7 +9,7 @@ import { handleListarReceitas } from "../Actions/ReceitaAction";
 /* Layout */
 import { Row, Col, Table, Button } from "reactstrap";
 
-const ListagemReceitaView = () => {
+const ListagemReceitaPage = () => {
   const history = useHistory();
   const receitas = useSelector((state) => state.receitas);
 
@@ -74,4 +74,4 @@ const ListagemReceitaView = () => {
   );
 };
 
-export default ListagemReceitaView;
+export default ListagemReceitaPage;
