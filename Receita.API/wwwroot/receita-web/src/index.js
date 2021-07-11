@@ -20,11 +20,9 @@ ReactDOM.render(
   <React.Fragment>
     <Provider store={store}>
 
+      <Menu></Menu>
       <Container fluid={true}>
-
-        <Menu></Menu>
         <App />
-
       </Container>
 
     </Provider>

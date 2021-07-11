@@ -7,7 +7,7 @@ import { Link, useHistory } from "react-router-dom";
 import { handleListarReceitas } from "../Actions/ReceitaAction";
 
 /* Layout */
-import { Row, Col, Table, Button } from "reactstrap";
+import { Row, Col, Table, Button, Container } from "reactstrap";
 
 const ListagemReceitaPage = () => {
   const history = useHistory();
@@ -27,50 +27,60 @@ const ListagemReceitaPage = () => {
   };
 
   return (
-    <Col sm={{ size: 12 }}>
-      <Row>
-        <Col sm={{ size: 6, offset: 3 }}>
-          <Link to={"/cadastrar"}>Cadastrar</Link>
-        </Col>
-      </Row>
-      <Row>
-        <Col sm={{ size: 10, offset: 1 }}>
-          <Table>
-            <thead>
-              <tr>
-                <th>Titulo</th>
-                <th>#</th>
-              </tr>
-            </thead>
-            <tbody>
-              {receitas && receitas.length > 0 ? (
-                receitas.map((receita, key) => {
-                  return (
-                    <tr key={key}>
-                      <td>{receita.titulo}</td>
-                      <td>
-                        <Button
-                          outline
-                          color="primary"
-                          size="sm"
-                          onClick={() => verReceita(receita)}
-                        >
-                          Ver
-                        </Button>
-                      </td>
-                    </tr>
-                  );
-                })
-              ) : (
+    <Container>
+      <Col sm={{ size: 12 }}>
+
+        <h1>Minhas Receitas</h1>
+
+        <Row>
+          <Col sm={{ size: 12 }}>
+            <Link to={"/cadastrar"}>
+              <Button color="primary">Cadastrar</Button>
+            </Link>
+          </Col>
+        </Row>
+        <Row>
+          <Col sm={{ size: 12 }}>
+
+            <br />
+
+            <Table size="sm">
+              <thead>
                 <tr>
-                  <td colSpan={2}>Nenhuma receita cadastrada</td>
+                  <th>Titulo</th>
+                  <th>#</th>
                 </tr>
-              )}
-            </tbody>
-          </Table>
-        </Col>
-      </Row>
-    </Col>
+              </thead>
+              <tbody>
+                {receitas && receitas.length > 0 ? (
+                  receitas.map((receita, key) => {
+                    return (
+                      <tr key={key}>
+                        <td>{receita.titulo}</td>
+                        <td>
+                          <Button
+                            outline
+                            color="primary"
+                            size="sm"
+                            onClick={() => verReceita(receita)}
+                          >
+                            Ver
+                        </Button>
+                        </td>
+                      </tr>
+                    );
+                  })
+                ) : (
+                  <tr>
+                    <td colSpan={2}>Nenhuma receita cadastrada</td>
+                  </tr>
+                )}
+              </tbody>
+            </Table>
+          </Col>
+        </Row>
+      </Col>
+    </Container>
   );
 };
 
