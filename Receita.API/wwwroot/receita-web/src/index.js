@@ -8,9 +8,11 @@ import reducer from './Reducers'
 
 import { Provider } from 'react-redux'
 import { createStore, applyMiddleware } from 'redux'
-import thunk from "redux-thunk" 
+import thunk from "redux-thunk"
 
 import { Container } from 'reactstrap';
+
+import Menu from './Components/Menu'
 
 const store = createStore(reducer, applyMiddleware(thunk))
 
@@ -18,10 +20,13 @@ ReactDOM.render(
   <React.Fragment>
     <Provider store={store}>
 
-    <Container fluid={true}>
-      <App />
-    </Container>
-      
+      <Container fluid={true}>
+
+        <Menu></Menu>
+        <App />
+
+      </Container>
+
     </Provider>
   </React.Fragment>,
   document.getElementById('root')
