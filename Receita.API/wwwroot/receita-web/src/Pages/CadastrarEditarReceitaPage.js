@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { handleConsultarReceita, handleAlterarReceita, handleAdicionarReceita } from '../Actions/ReceitaAction'
 
 /* Layout */
-import { Row, Col, Form, FormGroup, Label, Input, Table, Button } from 'reactstrap';
+import { Row, Col, Form, FormGroup, Label, Input, Table, Button, Container } from 'reactstrap';
 
 /* Components */
 import IngredienteModel from '../Components/IngredienteModel'
@@ -105,132 +105,141 @@ class CadastrarEditarReceitaView extends Component {
         const { receita, modal } = this.state
 
         return (
-            <Row>
-                <Col sm={{ size: 6, offset: 3 }}>
-                    <Form>
-                        <FormGroup>
-                            <Label for="txtTitulo">Título</Label>
-                            <Input type="text" bsSize="sm" id="txtTitulo" placeholder="Insira o título da receita" value={receita.titulo} onChange={(e) => this.alterarReceita({ titulo: e.target.value })} />
-                        </FormGroup>
-                        <FormGroup>
-                            <Row>
-                                <Col sm={6}>
-                                    <Label for="txtIngredientes">Ingredientes</Label>
-                                </Col>
-                                <Col sm={6} className="text-right">
-                                    <Button outline color="primary" size="sm" onClick={() => this.alterarModal({ exibirIgrediente: true })}>Novo Ingrediente</Button>
-                                </Col>
-                            </Row>
 
-                            <Table id="txtIngredientes" size="sm" responsive>
-                                <thead>
-                                    <tr>
-                                        <th>Descrição</th>
-                                        <th>Quantidade</th>
-                                        <th>Unidade de medida</th>
-                                        <th>Observação</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        (receita.listaIgredientes.length > 0) ?
-                                            receita.listaIgredientes.map((ingrediente, key) => (
-                                                <tr key={key}>
-                                                    <td>{ingrediente.descricao}</td>
-                                                    <td>{ingrediente.quantidade ?? 'N/A'}</td>
-                                                    <td>{GetEnumDescricao(EUnidadeMedida, ingrediente.unidadeMedida)}</td>
-                                                    <td>{ingrediente.observacao}</td>
+            <Container>
+
+                <h1>Gravar Receita</h1>
+
+                <Row>
+                    <Col sm={{ size: 6, offset: 3 }}>
+                        <Form>
+                            <FormGroup>
+                                <Label for="txtTitulo">Título</Label>
+                                <Input type="text" bsSize="sm" id="txtTitulo" placeholder="Insira o título da receita" value={receita.titulo} onChange={(e) => this.alterarReceita({ titulo: e.target.value })} />
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col sm={6}>
+                                        <Label for="txtIngredientes">Ingredientes</Label>
+                                    </Col>
+                                    <Col sm={6} className="text-right">
+                                        <Button outline color="primary" size="sm" onClick={() => this.alterarModal({ exibirIgrediente: true })}>Novo Ingrediente</Button>
+                                    </Col>
+                                </Row>
+
+                                <Table id="txtIngredientes" size="sm" responsive>
+                                    <thead>
+                                        <tr>
+                                            <th>Descrição</th>
+                                            <th>Quantidade</th>
+                                            <th>Unidade de medida</th>
+                                            <th>Observação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            (receita.listaIgredientes.length > 0) ?
+                                                receita.listaIgredientes.map((ingrediente, key) => (
+                                                    <tr key={key}>
+                                                        <td>{ingrediente.descricao}</td>
+                                                        <td>{ingrediente.quantidade ?? 'N/A'}</td>
+                                                        <td>{GetEnumDescricao(EUnidadeMedida, ingrediente.unidadeMedida)}</td>
+                                                        <td>{ingrediente.observacao}</td>
+                                                    </tr>
+                                                ))
+                                                :
+                                                <tr className="text-center">
+                                                    <td colSpan="4">Nenhum ingrediente cadastrado</td>
                                                 </tr>
-                                            ))
-                                            :
-                                            <tr className="text-center">
-                                                <td colSpan="4">Nenhum ingrediente cadastrado</td>
-                                            </tr>
-                                    }
+                                        }
 
-                                </tbody>
-                            </Table>
-                        </FormGroup>
-                        <FormGroup>
-                            <Row>
-                                <Col sm={6}>
-                                    <Label for="txtPassoAPasso">Passo a passo</Label>
-                                </Col>
-                                <Col sm={6} className="text-right">
-                                    <Button outline color="primary" size="sm" onClick={() => this.alterarModal({ exibirPassos: true })}>Novo passo</Button>
-                                </Col>
-                            </Row>
+                                    </tbody>
+                                </Table>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col sm={6}>
+                                        <Label for="txtPassoAPasso">Passo a passo</Label>
+                                    </Col>
+                                    <Col sm={6} className="text-right">
+                                        <Button outline color="primary" size="sm" onClick={() => this.alterarModal({ exibirPassos: true })}>Novo passo</Button>
+                                    </Col>
+                                </Row>
 
-                            <Table id="txtPassoAPasso" size="sm" responsive>
-                                <thead>
-                                    <tr>
-                                        <th>Ordem</th>
-                                        <th>Descrição</th>
-                                        <th>Observação</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        (receita.listaPassoAPasso.length > 0) ?
-                                            receita.listaPassoAPasso.map((passo, key) => (
-                                                <tr key={key}>
-                                                    <td>{passo.ordem}</td>
-                                                    <td>{passo.descricao}</td>
-                                                    <td>{passo.observacao}</td>
+                                <Table id="txtPassoAPasso" size="sm" responsive>
+                                    <thead>
+                                        <tr>
+                                            <th>Ordem</th>
+                                            <th>Descrição</th>
+                                            <th>Observação</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            (receita.listaPassoAPasso.length > 0) ?
+                                                receita.listaPassoAPasso.map((passo, key) => (
+                                                    <tr key={key}>
+                                                        <td>{passo.ordem}</td>
+                                                        <td>{passo.descricao}</td>
+                                                        <td>{passo.observacao}</td>
+                                                    </tr>
+                                                ))
+                                                :
+                                                <tr className="text-center">
+                                                    <td colSpan="3">Nenhum passo cadastrado</td>
                                                 </tr>
-                                            ))
-                                            :
-                                            <tr className="text-center">
-                                                <td colSpan="3">Nenhum passo cadastrado</td>
-                                            </tr>
-                                    }
+                                        }
 
-                                </tbody>
-                            </Table>
-                        </FormGroup>
-                        <FormGroup>
-                            <Row>
-                                <Col sm={6}>
-                                    <Label for="txtTags">Tags</Label>
-                                </Col>
-                                <Col sm={6} className="text-right">
-                                    <Button outline color="primary" size="sm" onClick={() => this.alterarModal({ exibirTags: true })}>Nova tag</Button>
-                                </Col>
-                            </Row>
+                                    </tbody>
+                                </Table>
+                            </FormGroup>
+                            <FormGroup>
+                                <Row>
+                                    <Col sm={6}>
+                                        <Label for="txtTags">Tags</Label>
+                                    </Col>
+                                    <Col sm={6} className="text-right">
+                                        <Button outline color="primary" size="sm" onClick={() => this.alterarModal({ exibirTags: true })}>Nova tag</Button>
+                                    </Col>
+                                </Row>
 
-                            <Table id="txtTags" size="sm" responsive>
-                                <thead>
-                                    <tr>
-                                        <th>Tag</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    {
-                                        (receita.tags.length > 0) ?
-                                            receita.tags.map((tag, key) => (
-                                                <tr key={key}>
-                                                    <td>{tag}</td>
+                                <Table id="txtTags" size="sm" responsive>
+                                    <thead>
+                                        <tr>
+                                            <th>Tag</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        {
+                                            (receita.tags.length > 0) ?
+                                                receita.tags.map((tag, key) => (
+                                                    <tr key={key}>
+                                                        <td>{tag}</td>
+                                                    </tr>
+                                                ))
+                                                :
+                                                <tr className="text-center">
+                                                    <td>Nenhuma tag cadastrada</td>
                                                 </tr>
-                                            ))
-                                            :
-                                            <tr className="text-center">
-                                                <td>Nenhuma tag cadastrada</td>
-                                            </tr>
-                                    }
+                                        }
 
-                                </tbody>
-                            </Table>
-                        </FormGroup>
-                    </Form>
+                                    </tbody>
+                                </Table>
+                            </FormGroup>
+                        </Form>
 
-                    <Link to={'/'}>Voltar</Link>
-                    <Button outline color="primary" size="sm" onClick={this.onGravar}>Gravar</Button>
-                </Col>
+                        <Link to={'/'}>
+                            <Button outline color="secondary" size="sm">Voltar</Button>
+                        </Link>
+                        <Button outline color="primary" size="sm" onClick={this.onGravar}>Gravar</Button>
+                    </Col>
 
-                <IngredienteModel exibir={modal.exibirIgrediente} onClose={() => this.alterarModal({ exibirIgrediente: false })} onSalvar={this.onSalvarIngrediente}></IngredienteModel>
-                <PassoModel exibir={modal.exibirPassos} onClose={() => this.alterarModal({ exibirPassos: false })} onSalvar={this.onSalvarPasso}></PassoModel>
-                <TagModel exibir={modal.exibirTags} onClose={() => this.alterarModal({ exibirTags: false })} onSalvar={this.onSalvarTag}></TagModel>
-            </Row>);
+                    <IngredienteModel exibir={modal.exibirIgrediente} onClose={() => this.alterarModal({ exibirIgrediente: false })} onSalvar={this.onSalvarIngrediente}></IngredienteModel>
+                    <PassoModel exibir={modal.exibirPassos} onClose={() => this.alterarModal({ exibirPassos: false })} onSalvar={this.onSalvarPasso}></PassoModel>
+                    <TagModel exibir={modal.exibirTags} onClose={() => this.alterarModal({ exibirTags: false })} onSalvar={this.onSalvarTag}></TagModel>
+                </Row>
+            </Container>
+        );
     }
 }
 
