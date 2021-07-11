@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { handleConsultarReceita } from '../Actions/ReceitaAction'
 
 /* Layout */
-import { Row, Col, List, Badge, Container, Card, CardBody, CardTitle, CardText, Button } from 'reactstrap';
+import { Col, List, Badge, Container, Card, CardBody, CardTitle, CardText, Button } from 'reactstrap';
 
 import { EUnidadeMedida } from '../Util/Enumerador'
 import { GetEnumDescricao } from '../Util/Funcoes'
